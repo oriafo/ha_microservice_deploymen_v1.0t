@@ -17,7 +17,7 @@ permissions:
 jobs:
   Infra_provisioning:
     runs-on: ubuntu-latest
-    #environment: staging
+    environment: dev
     defaults:
       run:
         shell: bash
