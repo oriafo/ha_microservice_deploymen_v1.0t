@@ -99,8 +99,8 @@ jobs:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
             aws-region: us-east-1
-            role-to-assume: arn:aws:iam::681117582889:role/oidc-setup-gitops2024Role-kIycUgNuXrDf
-            audience: sts.amazonaws.com
+            # role-to-assume: arn:aws:iam::681117582889:role/oidc-setup-gitops2024Role-kIycUgNuXrDf
+            # audience: sts.amazonaws.com
       
       - name: Configure AWS Credentials for staging Environment
         uses: aws-actions/configure-aws-credentials@v1
