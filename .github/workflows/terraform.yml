@@ -1,72 +1,3 @@
-name: Terraform Infrastructure Provisioning
-
-on:
-  pull_request:
-    branches:
-      - main            # Trigger a workflow that target the main branch
-      - staging  
-      - '!dev'
-      - '!feature/*'
-      # - 'releases/**'
-
-
-permissions:
-  contents: read
-  id-token: write
-
-jobs:
-  Infra_provisioning:
-    runs-on: ubuntu-latest
-    #environment: staging
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./infra
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-    
-      - name: Configure AWS Credentials for Development Environment
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          # role-to-assume: ${{ secrets.AWS_PUBLIC_KEY }}
-          # aws-region: us-east-1
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
-          aws-region: us-east-1
-          role-to-assume: arn:aws:iam::681117582889:role/oidc-setup-gitops2024Role-kIycUgNuXrDf
-                         
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init
-        run: terraform init
-
-    # Checks that all Terraform configuration files adhere to a canonical format
-      - name: Terraform Format
-        run: terraform fmt -check
-
-    # Generates an execution plan for Terraform
-      - name: Terraform Plan
-        run: terraform plan -input=false
-
-    # Apply the Configuration
-      - name: Terraform Apply
-        run: terraform apply -input=false -auto-approve
-
-      - name: Check Terraform Status
-        run: |
-          if [ $? -ne 0 ]; then
-            echo "Terraform apply failed"
-            exit 1
-          else
-            echo "Terraform apply succeeded"
-          fi
-
-
-
-
-
 # name: Terraform Infrastructure Provisioning
 
 # on:
@@ -79,74 +10,49 @@ jobs:
 #       # - 'releases/**'
 
 
-# # fix: added credential for multiple environment and this credentials are selected based on the github.ref
 # permissions:
-#   id-token: write   # This is required for requesting the JWT
-#   contents: read 
+#   contents: read
+#   id-token: write
 
 # jobs:
 #   Infra_provisioning:
 #     runs-on: ubuntu-latest
-
+#     #environment: staging
+#     defaults:
+#       run:
+#         shell: bash
+#         working-directory: ./infra
 #     steps:
 #       - name: Checkout code
-#         uses: actions/checkout@v3
+#         uses: actions/checkout@v4
     
 #       - name: Configure AWS Credentials for Development Environment
-#         uses: aws-actions/configure-aws-credentials@v1
-#         if: ${{github.ref}} == 'refs/heads/dev'
+#         uses: aws-actions/configure-aws-credentials@v4
 #         with:
-#             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
-#             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
-#             aws-region: us-east-1
-#             role-to-assume: arn:aws:iam::681117582889:role/GitActionPermissionPolicy
-#             audience: sts.amazonaws.com
-      
-#       - name: Configure AWS Credentials for staging Environment
-#         uses: aws-actions/configure-aws-credentials@v1
-#         if: ${{github.ref}} == 'refs/heads/staging'
-#         with:
-#             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
-#             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
-#             aws-region: us-east-1
-#             role-to-assume: arn:aws:iam::681117582889:role/GitActionPermissionPolicy
-#             audience: sts.amazonaws.com
+#           # role-to-assume: ${{ secrets.AWS_PUBLIC_KEY }}
+#           # aws-region: us-east-1
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
+#           aws-region: us-east-1
+#           role-to-assume: arn:aws:iam::681117582889:role/oidc-setup-gitops2024Role-kIycUgNuXrDf
                          
 #       - name: Set up Terraform
-#         uses: hashicorp/setup-terraform@v1
-#         with:
-#           terraform_version: 1.9.8 # Specify the version you need
+#         uses: hashicorp/setup-terraform@v3
 
-#       - name: Running some .tf script
-#         run: |
-#           cd infra
-#           terraform init
-#           terraform fmt
-#           terraform validate
-#           terraform plan -var "aws_public_key=${{ secrets.AWS_PUBLIC_KEY }}" -var "aws_private_key=${{ secrets.AWS_PRIVATE_KEY }}" -out=tfplan
-#           terraform apply tfplan 
+#       - name: Terraform Init
+#         run: terraform init
 
-#       # - name: Initialize Terraform
-#       #   run: terraform init
+#     # Checks that all Terraform configuration files adhere to a canonical format
+#       - name: Terraform Format
+#         run: terraform fmt -check
 
+#     # Generates an execution plan for Terraform
+#       - name: Terraform Plan
+#         run: terraform plan -input=false
 
-#       # - name: Validate Terraform
-#       #   run: terraform validate
-
-#       # - name: Plan Terraform
-
-#       #   id: plan
-#       #   run: terraform -chdir=infra plan -out=tfplan
-#       #   # run: terraform plan
-
-#       # - name: List Files
-#       #   run: ls -la
-
-#       # - name: Apply Terraform
-#       #   run: |
-#       #     terraform apply tfplan --auto-approve
-
-#         # continue-on-error: true  # Continue even if apply fails for status check
+#     # Apply the Configuration
+#       - name: Terraform Apply
+#         run: terraform apply -input=false -auto-approve
 
 #       - name: Check Terraform Status
 #         run: |
@@ -156,3 +62,97 @@ jobs:
 #           else
 #             echo "Terraform apply succeeded"
 #           fi
+
+
+
+
+
+name: Terraform Infrastructure Provisioning
+
+on:
+  pull_request:
+    branches:
+      - main            # Trigger a workflow that target the main branch
+      - staging  
+      - '!dev'
+      - '!feature/*'
+      # - 'releases/**'
+
+
+# fix: added credential for multiple environment and this credentials are selected based on the github.ref
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read 
+
+jobs:
+  Infra_provisioning:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+    
+      - name: Configure AWS Credentials for Development Environment
+        uses: aws-actions/configure-aws-credentials@v1
+        if: ${{github.ref}} == 'refs/heads/dev'
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
+            aws-region: us-east-1
+            role-to-assume: arn:aws:iam::681117582889:role/GitActionPermissionPolicy
+            audience: sts.amazonaws.com
+      
+      - name: Configure AWS Credentials for staging Environment
+        uses: aws-actions/configure-aws-credentials@v1
+        if: ${{github.ref}} == 'refs/heads/staging'
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
+            aws-region: us-east-1
+            role-to-assume: arn:aws:iam::681117582889:role/GitActionPermissionPolicy
+            audience: sts.amazonaws.com
+                         
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.9.8 # Specify the version you need
+
+      - name: Running some .tf script
+        run: |
+          cd infra
+          terraform init
+          terraform fmt
+          terraform validate
+          terraform plan -var "aws_public_key=${{ secrets.AWS_PUBLIC_KEY }}" -var "aws_private_key=${{ secrets.AWS_PRIVATE_KEY }}" -out=tfplan
+          terraform apply tfplan 
+
+      # - name: Initialize Terraform
+      #   run: terraform init
+
+
+      # - name: Validate Terraform
+      #   run: terraform validate
+
+      # - name: Plan Terraform
+
+      #   id: plan
+      #   run: terraform -chdir=infra plan -out=tfplan
+      #   # run: terraform plan
+
+      # - name: List Files
+      #   run: ls -la
+
+      # - name: Apply Terraform
+      #   run: |
+      #     terraform apply tfplan --auto-approve
+
+        # continue-on-error: true  # Continue even if apply fails for status check
+
+      - name: Check Terraform Status
+        run: |
+          if [ $? -ne 0 ]; then
+            echo "Terraform apply failed"
+            exit 1
+          else
+            echo "Terraform apply succeeded"
+          fi
