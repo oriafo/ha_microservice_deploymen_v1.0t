@@ -35,7 +35,7 @@ Outputs:
   RoleName:
     Description: 'The name of the IAM role for GitHub Actions'
     Value:
-      Ref: gitops2024Role
+      Ref: gitops2024Role   
     Export:
       Name:
         Fn::Sub: '${AWS::StackName}-RoleName'      
