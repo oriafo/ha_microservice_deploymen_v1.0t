@@ -21,7 +21,7 @@ permissions:
 jobs:
   Infra_provisioning:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: dev  
     defaults:
       run:
         shell: bash
