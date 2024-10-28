@@ -56,7 +56,7 @@ jobs:
 
     # Apply the Configuration
       - name: Terraform Apply
-        run: terraform apply "plan.tfplan" -auto-approve
+        run: terraform apply "plan.tfplan" 
 
       - name: Check Terraform Status
         run: |
