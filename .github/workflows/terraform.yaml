@@ -52,7 +52,7 @@ jobs:
 
     # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -input=false
+        run: terraform plan  -var "aws_public_key=${{ secrets.AWS_PUBLIC_KEY }}" -var "aws_private_key=${{ secrets.AWS_PRIVATE_KEY }}" -out=tfplan
 
     # Apply the Configuration
       - name: Terraform Apply
