@@ -20,16 +20,17 @@ provider "aws" {
 }
 
 
-resource "aws_key_pair" "pub_key" {
-  key_name = "key"  # Replace with the name of your key pair
-  public_key = var.aws_public_key
-}
+# resource "aws_key_pair" "pub_key" {
+#   key_name = "key"  # Replace with the name of your key pair
+#   public_key = var.aws_public_key
+# }
+
 
 resource "aws_instance" "provisioner_machine" {
   ami           = "ami-0866a3c8686eaeeba"
   instance_type = var.instance_type
   #key_name      = data.aws_key_pair.my_key.key_name 
-  key_name      = aws_key_pair.pub_key.key_name 
+  key_name      = var.aws_public_key
   tags = {
     Name = "provisioner_machine"
   }
