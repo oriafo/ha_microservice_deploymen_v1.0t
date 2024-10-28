@@ -26,8 +26,8 @@ jobs:
       run:
         shell: bash
         working-directory: ./infra
-    env: 
-      GH_TOKEN: ${{ github.token }}
+    # env: 
+    #   GH_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
