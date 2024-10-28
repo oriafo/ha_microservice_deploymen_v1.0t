@@ -31,7 +31,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
           aws-region: us-east-1
-          role-session-name: GitHubActionSession
+          # role-session-name: GitHubActionSession
 
                          
       - name: Set up Terraform
