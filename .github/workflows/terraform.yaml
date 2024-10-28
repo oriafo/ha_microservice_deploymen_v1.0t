@@ -56,11 +56,13 @@ jobs:
 
       # Apply the Configuration
       - name: check for plain.tfplan in this directory
-        run: ls -l
+        run: |
+          ls -l
+          export AWS_PROFILE=${{ secrets.AWS_PROFILE }}
 
     # Apply the Configuration
       - name: Terraform Apply
-        run: terraform apply "plan.tfplan" -var "aws_public_key=${{ secrets.AWS_PUBLIC_KEY }}" -var "aws_private_key=${{ secrets.AWS_PRIVATE_KEY }}" 
+        run: terraform apply "plan.tfplan" 
 
       - name: Check Terraform Status
         run: |
