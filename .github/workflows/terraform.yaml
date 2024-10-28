@@ -7,10 +7,10 @@ on:
       - staging  
       - dev
       #- '!feature/*'
-  workflow_call:
-    secrets:
-      ROLE_TO_ASSUME:
-        required: true
+  # workflow_call:
+  #   secrets:
+  #     ROLE_TO_ASSUME:
+  #       required: true
 
 
 permissions:
