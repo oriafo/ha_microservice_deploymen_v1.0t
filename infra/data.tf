@@ -15,7 +15,7 @@
 # }
 
 data "aws_key_pair" "my_key" {
-  key_name = "bastonHost-key.pem"           # Replace with the name of your key pair
+  key_name = "bastonHost-key"           # Replace with the name of your key pair
 }
 
 
