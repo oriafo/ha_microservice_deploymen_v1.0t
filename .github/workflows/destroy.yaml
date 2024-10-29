@@ -1,7 +1,7 @@
-name: Terraform Infrastructure Provisioning
+name: Terraform Destroy Provisioning
 
-
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 
 
 permissions:
@@ -11,7 +11,7 @@ permissions:
 jobs:
   Infra_provisioning:
     runs-on: ubuntu-latest
-    #environment: staging
+    environment: dev  
     defaults:
       run:
         shell: bash
@@ -23,27 +23,27 @@ jobs:
       - name: Configure AWS Credentials for Development Environment
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+          # role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-                         
-      - name: Set up Terraform
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         run: terraform init
 
-    # Checks that all Terraform configuration files adhere to a canonical format
+      # Checks that all Terraform configuration files adhere to a canonical format
       - name: Terraform Format
         run: terraform fmt -check
 
-        # Generates an execution plan for Terraform
+      # Generates an execution plan for Terraform
       - name: Terraform Plan -destroy
         run: terraform plan -input=false
- 
-    # Apply the Configuration
+
+      # Apply the Configuration
       - name: Terraform Destroy
         run: terraform destroy -input=false -auto-approve
-
-
-
-
