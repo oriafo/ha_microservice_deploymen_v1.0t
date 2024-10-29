@@ -28,8 +28,8 @@ provider "aws" {
 resource "aws_instance" "provisioner_machine" {
   ami           = "ami-0866a3c8686eaeeba"
   instance_type = var.instance_type
-  #key_name      = data.aws_key_pair.my_key.key_name 
-  key_name      = var.aws_public_key
+  key_name      = data.aws_key_pair.my_key.key_name 
+  #key_name      = var.aws_public_key
   tags = {
     Name = "provisioner_machine"
   }
@@ -40,7 +40,7 @@ resource "aws_instance" "provisioner_machine" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = var.aws_private_key  # Path to your SSH key
+      private_key = "bastonHost-key"  # Path to your SSH key
     }
   }
 
@@ -55,7 +55,7 @@ resource "aws_instance" "provisioner_machine" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = var.aws_private_key   # Path to your SSH key
+      private_key = "bastonHost-key"   # Path to your SSH key
     }
   }
 }
