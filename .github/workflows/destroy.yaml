@@ -1,4 +1,4 @@
-name: Terraform Destroy Provisioning
+name: Terraform Destroy Provisioning   
 
 on:
   workflow_dispatch:
