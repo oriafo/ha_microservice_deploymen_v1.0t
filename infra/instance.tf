@@ -28,7 +28,7 @@ provider "aws" {
 resource "aws_instance" "provisioner_machine" {
   ami           = "ami-0866a3c8686eaeeba"
   instance_type = var.instance_type
-  key_name      = "bastonHost-key.pem"
+  key_name      = "../keyy/bastonHost-key.pem"
   #key_name      = var.aws_public_key
   tags = {
     Name = "provisioner_machine"
