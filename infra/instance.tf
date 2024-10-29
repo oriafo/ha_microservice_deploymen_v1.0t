@@ -40,7 +40,7 @@ resource "aws_instance" "provisioner_machine" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = "bastonHost-key"  # Path to your SSH key
+      private_key = "bastonHost-key.pem"  # Path to your SSH key
     }
   }
 
@@ -55,7 +55,7 @@ resource "aws_instance" "provisioner_machine" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = "bastonHost-key"   # Path to your SSH key
+      private_key = "bastonHost-key.pem"   # Path to your SSH key
     }
   }
 }
