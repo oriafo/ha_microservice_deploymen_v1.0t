@@ -20,17 +20,17 @@ provider "aws" {
 }
 
 
-# resource "aws_key_pair" "pub_key" {
-#   key_name = "key"  # Replace with the name of your key pair
-#   public_key = var.aws_public_key
-# }
+resource "aws_key_pair" "pub_key" {
+  key_name = "key"  # Replace with the name of your key pair
+  public_key = file(../keyy/key.pub)
+}
 
 
 resource "aws_instance" "provisioner_machine" {
   ami           = "ami-0866a3c8686eaeeba"
   instance_type = var.instance_type
   #key_name      = data.aws_key_pair.my_key.key_name 
-  key_name      = var.aws_public_key
+  key_name      = aws_key_pair.pub_key.key_name
   tags = {
     Name = "provisioner_machine"
   }
@@ -41,7 +41,7 @@ resource "aws_instance" "provisioner_machine" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = var.aws_private_key  # Path to your SSH key
+      private_key = public_key = file(../keyy/key) # Path to your SSH key
     }
   }
 
@@ -56,7 +56,7 @@ resource "aws_instance" "provisioner_machine" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = var.aws_private_key   # Path to your SSH key
+      private_key = public_key = file(../keyy/key)   # Path to your SSH key
     }
   }
 }
