@@ -11,19 +11,14 @@ sudo systemctl enable nginx
 sudo systemctl status nginx
 cd /tmp    #This next command will fall because, you might not have the permissiont o write to the file system, hence you are using the /tmp directory where you dont need such permission
 wget https://www.tooplate.com/zip-templates/2137_barista_cafe.zip
-if [ -f "2137_barista_cafe.zip" ]; then
-    sudo mkdir -p /var/www/html
-    sudo unzip 2137_barista_cafe.zip -d /var/www/html
-    sudo cp -r /var/www/html/2137_barista_cafe/* /var/www/html
-    if [ $? -ne 0 ]; then
-        exit 1
-    else
-        echo "The site was copied properly to the html directory"
-    sudo nginx -s reload
-    # sudo systemctl restart nginx
-else
-    exit 1
-    echo "Something went wrong while downloading the file"
-fi
+# if [ -f "2137_barista_cafe.zip" ]; then
+sudo mkdir -p /var/www/html
+sudo unzip 2137_barista_cafe.zip -d /var/www/html
+sudo cp -r /var/www/html/2137_barista_cafe/* /var/www/html
+sudo nginx -s reload
+sudo systemctl restart nginx
+# else
+    # echo "Something went wrong while downloading the file"
+# fi
 
 
