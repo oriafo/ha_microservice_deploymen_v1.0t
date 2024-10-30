@@ -6,7 +6,6 @@ on:
       - main                                            # Trigger on pull requests to the main branch
       - staging  
       - dev
-      #- '!feature/*'
       
 
 
@@ -22,8 +21,6 @@ jobs:
       run:
         shell: bash
         working-directory: ./infra
-    # env: 
-    #   GH_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,7 +32,6 @@ jobs:
       - name: Configure AWS Credentials for Development Environment
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          # role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
@@ -54,7 +50,6 @@ jobs:
     # Generates an execution plan for Terraform
       - name: Terraform Plan
         run: terraform plan -var "aws_private_key=${{ secrets.AWS_BASTONHOST_PRIV_KEY}}" -out=plan.tfplan 
-        # run: terraform plan -out=plan.tfplan -var "aws_public_key=${{ secrets.AWS_PUBLIC_KEY }}" -var "aws_private_key=${{ secrets.AWS_PRIVATE_KEY }}" 
 
       # Apply the Configuration
       - name: check for plain.tfplan in this directory
@@ -63,7 +58,6 @@ jobs:
     # Apply the Configuration
       - name: Terraform Apply 
         run: terraform apply -var "aws_private_key=${{ secrets.AWS_BASTONHOST_PRIV_KEY}}" -auto-approve
-        # run: terraform apply -var "aws_public_key=${{ secrets.AWS_PUBLIC_KEY }}" -var "aws_private_key=${{ secrets.AWS_PRIVATE_KEY }}" -auto-approve
 
       - name: Check Terraform Status
         run: |

@@ -10,3 +10,9 @@ variable "instance_type" {
 variable "aws_private_key" {
   description = "Hold the private key that will be pass by github action"
 }
+
+variable "environment_name" {
+  description = "Deployment environment (staging/production)"
+  type        = string
+  default     = "dev"
+}
