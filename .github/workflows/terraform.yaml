@@ -17,7 +17,7 @@ permissions:
 jobs:
   Infra_provisioning:
     runs-on: ubuntu-latest
-    environment: dev 
+    environment: ${{ github.head_ref }}
     defaults:
       run:
         shell: bash
@@ -30,7 +30,7 @@ jobs:
 
       - name: echo the current branch
         run:  |
-          echo "Current branch is:  ${GITHUB_HEAD_REF}"
+          echo "Current branch is: ${github.head_ref}"
     
       - name: Configure AWS Credentials for Development Environment
         uses: aws-actions/configure-aws-credentials@v4
