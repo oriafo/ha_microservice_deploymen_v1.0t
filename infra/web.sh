@@ -8,7 +8,7 @@ sudo ufw status
 sudo systemctl start nginx
 sudo systemctl enable nginx
 sudo systemctl status nginx
-cd /tmp 
+sudo cd /tmp 
 wget https://www.tooplate.com/zip-templates/2137_barista_cafe.zip
 # if [ -f "2137_barista_cafe.zip" ]; then
 sudo unzip -o 2137_barista_cafe.zip /var/www/html
