@@ -58,7 +58,7 @@ resource "aws_instance" "provisioner_machine" {
   instance_type = var.instance_type
   key_name      = data.aws_key_pair.my_key.key_name
   #key_name      = var.aws_public_key
-  vpc_security_group_ids = [ data.aws_security_group.default ]
+  vpc_security_group_ids = [ data.aws_security_group.default.id ]
   tags = {
     Name = "provisioner_machine"
   }
