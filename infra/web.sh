@@ -1,4 +1,5 @@
 #!/bin/bash -xe
+sleep 10
 sudo apt update
 sudo apt install wget unzip -y
 sudo apt install nginx -y
@@ -7,7 +8,7 @@ sudo ufw status
 sudo systemctl start nginx
 sudo systemctl enable nginx
 sudo systemctl status nginx
-# cd /tmp 
+cd /tmp 
 wget https://www.tooplate.com/zip-templates/2137_barista_cafe.zip
 # if [ -f "2137_barista_cafe.zip" ]; then
 sudo unzip -o 2137_barista_cafe.zip /var/www/html

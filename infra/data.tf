@@ -18,4 +18,10 @@ data "aws_key_pair" "my_key" {
   key_name = "bastonHost-key"           # Replace with the name of your key pair
 }
 
+data "aws_vpc" "default" {
+  default = true
+}
 
+data "http" "public_ip" {
+  url = "https://api.ipify.org"
+}
