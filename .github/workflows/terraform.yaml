@@ -3,7 +3,7 @@ name: Terraform Infrastructure Provisioning
 on:
   pull_request:
     branches:
-      - main                                         # Trigger on pull requests to the main branch
+      - main                                            # Trigger on pull requests to the main branch
       - staging  
       - dev
       #- '!feature/*'
