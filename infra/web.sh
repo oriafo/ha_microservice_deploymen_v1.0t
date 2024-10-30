@@ -1,4 +1,5 @@
 #!/bin/bash -xe
+exec > /tmp/script_output.log 2>&1 
 sleep 10
 sudo apt update
 sudo apt install wget unzip -y
