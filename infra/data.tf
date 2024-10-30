@@ -25,3 +25,11 @@ data "aws_vpc" "default" {
 data "http" "public_ip" {
   url = "https://api.ipify.org"
 }
+
+data "aws_security_group" "default" {
+  vpc_id = data.aws_vpc.default.id
+  filter {
+    name   = "group-name"
+    values = ["default"]  # The name of the default security group is usually "default"
+  }
+}
