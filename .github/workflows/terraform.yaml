@@ -29,7 +29,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: echo the current branch
-        run:  "Current branch is:  ${GITHUB_REF#refs/heads/}"
+        run:  |
+          echo "Current branch is:  ${GITHUB_REF#refs/heads/}"
     
       - name: Configure AWS Credentials for Development Environment
         uses: aws-actions/configure-aws-credentials@v4
