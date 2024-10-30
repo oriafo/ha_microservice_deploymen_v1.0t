@@ -17,7 +17,8 @@ permissions:
 jobs:
   Infra_provisioning:
     runs-on: ubuntu-latest
-    environment: ${{ github.head_ref }}
+    # environment: ${{ github.head_ref }}
+    environment: dev
     defaults:
       run:
         shell: bash
