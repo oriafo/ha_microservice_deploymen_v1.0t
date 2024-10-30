@@ -26,7 +26,7 @@ resource "aws_instance" "provisioner_machine" {
   key_name      = data.aws_key_pair.my_key.key_name
   vpc_security_group_ids = [ data.aws_security_group.default.id ]
   tags = {
-    Name = "provisioner_machine-${ github.head_ref }"
+    Name = "provisioner_machine-${ var.environment_name }"
   }
   provisioner "file" {
     source      = "web.sh"                                      # Local file path
