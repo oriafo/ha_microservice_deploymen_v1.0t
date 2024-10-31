@@ -14,5 +14,4 @@ variable "aws_private_key" {
 variable "environment_name" {
   description = "Deployment environment (staging/production)"
   type        = string
-  default     = "dev"
 }

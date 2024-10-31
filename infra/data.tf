@@ -21,7 +21,7 @@ locals {
 
 # Data block to fetch the SSH key pair based on the environment
 data "aws_key_pair" "my_key" {
-  key_name = "${ local.ssh_key_name }"
+  key_name = local.ssh_key_name
 }
 
 
