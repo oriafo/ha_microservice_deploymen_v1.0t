@@ -16,7 +16,7 @@
 
 # Define the SSH key pair names based on the environment
 locals {
-  ssh_key_name = var.environment_name == "dev" ? "bastonHost-key" : "bastonHost-key-prod"
+  ssh_key_name = var.environment_name == "dev" ? "bastonHost-key" : "bastonHost-key-prod" 
 }
 
 # Data block to fetch the SSH key pair based on the environment
